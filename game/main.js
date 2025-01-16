@@ -1,5 +1,6 @@
 // main.js
 import { html, render } from 'lit';
+import '/style.css';
 import './src/game.js';
 import './src/login.js';
 
