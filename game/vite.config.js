@@ -14,6 +14,9 @@ export default defineConfig({
                 short_name: 'MiPWA',
                 description: 'Una aplicación web progresiva creada con Vite y JavaScript',
                 theme_color: '#ffffff',
+                background_color: '#ffffff',
+                display: 'standalone',
+                start_url: '/',
                 icons: [
                     {
                         src: '/test.png',
