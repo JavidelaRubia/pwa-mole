@@ -1,18 +1,58 @@
-import '/style.css';
-import { navigateTo } from '/src/router.js';
+// main.js
+import { html, render } from 'lit';
+import './src/game.js';
+import './src/login.js';
 
+// Obtener el nombre del usuario desde localStorage
+let userName = localStorage.getItem('userName') || '';
 
+// Función para navegar entre páginas con validación
+export const navigateTo = (path) => {
+    // Evitar bucles infinitos
+    if (window.location.pathname !== path) {
+        window.history.pushState({}, '', path);
+        handleRoute(path);
+    }
+};
+
+// Gestión centralizada de rutas con validación
+const handleRoute = (path) => {
+    const isAuthenticated = !!userName; // Solo es true si hay un nombre guardado
+
+    if (path === '/game' && !isAuthenticated) {
+        // Evitar llamada recursiva: solo cambiar si es necesario
+        if (window.location.pathname !== '/') {
+            navigateTo('/');
+        }
+        return;
+    }
+
+    switch (path) {
+        case '/':
+            render(html`<login-page></login-page>`, document.body);
+            break;
+        case '/game':
+            render(html`<mole-game></mole-game>`, document.body);
+            break;
+        default:
+            // Redirigir a login si la ruta no existe o no está autorizado
+            if (window.location.pathname !== '/') {
+                navigateTo('/');
+            }
+            break;
+    }
+};
+
+// Manejar el botón "atrás" del navegador
+window.onpopstate = () => handleRoute(window.location.pathname);
+
+// Inicializar la app y validar en el primer acceso
 document.addEventListener('DOMContentLoaded', () => {
-    navigateTo(window.location.pathname);
+    handleRoute(window.location.pathname);
 });
 
-// Registrar el Service Worker
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js').then(() => {
-            console.log('Service Worker registrado con éxito');
-        }).catch((error) => {
-            console.error('Error al registrar el Service Worker:', error);
-        });
-    });
-}
+// Función para guardar el nombre del usuario
+export const setUserName = (name) => {
+    userName = name;
+    localStorage.setItem('userName', name);
+};
