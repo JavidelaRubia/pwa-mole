@@ -2,21 +2,13 @@ import { defineConfig } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
 
 export default defineConfig({
-    base: '/',
-    build: {
-        outDir: 'dist',
-    },
     plugins: [
         VitePWA({
             registerType: 'autoUpdate',
             manifest: {
                 name: 'Mi PWA con Vite',
                 short_name: 'MiPWA',
-                description: 'Una aplicación web progresiva creada con Vite y JavaScript',
                 theme_color: '#ffffff',
-                background_color: '#ffffff',
-                display: 'standalone',
-                start_url: '/',
                 icons: [
                     {
                         src: '/test.png',
@@ -31,15 +23,23 @@ export default defineConfig({
                 ],
             },
             workbox: {
+                // Precarga todos los archivos estáticos
+                globPatterns: ['**/*.{js,css,html,png,jpg,svg,ico}'],
                 runtimeCaching: [
                     {
-                        urlPattern: /^https:\/\/jsonplaceholder\.typicode\.com\/.*$/,
-                        handler: 'NetworkFirst',
+                        urlPattern: /^.*\.(js|css|html|png|svg|jpg|jpeg|gif|ico)$/,
+                        handler: 'CacheFirst',
                         options: {
-                            cacheName: 'api-cache',
+                            cacheName: 'offline-cache',
+                            expiration: {
+                                maxEntries: 100,
+                                maxAgeSeconds: 60 * 60 * 24 * 30, // 30 días
+                            },
                         },
                     },
                 ],
+                // Activar precarga total de recursos al instalar
+                precacheManifestFilename: 'precache-manifest.[manifestHash].js',
             },
         }),
     ],
