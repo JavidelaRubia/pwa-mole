@@ -16,6 +16,7 @@ export const navigateTo = (path) => {
     }
 };
 
+
 // Gestión centralizada de rutas con validación
 const handleRoute = (path) => {
     const isAuthenticated = !!userName; // Solo es true si hay un nombre guardado
