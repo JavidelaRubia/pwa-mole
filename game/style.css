@@ -94,3 +94,33 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-gap: 10px;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.cell {
+  width: 100px;
+  height: 100px;
+  background-color: #ddd;
+  border: 2px solid #333;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mole {
+  background-color: brown;
+  border-radius: 50%;
+}

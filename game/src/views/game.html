@@ -1,0 +1,7 @@
+<h1>¡Juego de los Topos!</h1>
+<p id="score">Puntaje: 0</p>
+<div class="game-grid">
+    <!-- Generar 9 casillas con ID -->
+    ${Array.from({ length: 9 }, (_, i) => `<div class="cell" id="cell-${i}"></div>`).join('')}
+</div>
+<button id="backButton">Volver al Login</button>
