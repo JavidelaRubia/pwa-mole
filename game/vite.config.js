@@ -2,44 +2,44 @@ import { defineConfig } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
 
 export default defineConfig({
+    base: '/',
+    build: {
+        outDir: 'dist',
+    },
     plugins: [
         VitePWA({
             registerType: 'autoUpdate',
             manifest: {
-                name: 'Mi PWA con Vite',
-                short_name: 'MiPWA',
+                name: 'Mole Game',
+                short_name: 'Mole Game',
+                description: 'A simple mole game',
                 theme_color: '#ffffff',
+                background_color: '#ffffff',
+                display: 'standalone',
+                start_url: '/',
                 icons: [
                     {
-                        src: '/test.png',
+                        src: '/mole-icon.png',
                         sizes: '192x192',
                         type: 'image/png',
                     },
                     {
-                        src: '/test.png',
+                        src: '/mole-icon.png',
                         sizes: '512x512',
                         type: 'image/png',
                     },
                 ],
             },
             workbox: {
-                // Precarga todos los archivos estáticos
-                globPatterns: ['**/*.{js,css,html,png,jpg,svg,ico}'],
                 runtimeCaching: [
                     {
-                        urlPattern: /^.*\.(js|css|html|png|svg|jpg|jpeg|gif|ico)$/,
-                        handler: 'CacheFirst',
+                        urlPattern: /^https:\/\/jsonplaceholder\.typicode\.com\/.*$/,
+                        handler: 'NetworkFirst',
                         options: {
-                            cacheName: 'offline-cache',
-                            expiration: {
-                                maxEntries: 100,
-                                maxAgeSeconds: 60 * 60 * 24 * 30, // 30 días
-                            },
+                            cacheName: 'api-cache',
                         },
                     },
                 ],
-                // Activar precarga total de recursos al instalar
-                precacheManifestFilename: 'precache-manifest.[manifestHash].js',
             },
         }),
     ],
