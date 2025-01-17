@@ -23,7 +23,7 @@ class MoleGrid extends LitElement {
         .mole {
             width: 100%;
             height: 100%;
-            background-image: url('../public/mole-icon.png');
+            background-image: url('/mole-icon.png');
             background-size: cover;
             background-position: center;
             animation: jump 1s ease-in-out infinite;
