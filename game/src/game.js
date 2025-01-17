@@ -1,4 +1,9 @@
 import { LitElement, html, css } from 'lit';
+import './components/scoreboard.js';
+import './components/selector-difficulty.js';
+import './components/mole-grid.js';
+import './components/modal-end.js';
+
 class MoleGame extends LitElement {
     static styles = css`
         :host {
@@ -11,63 +16,16 @@ class MoleGame extends LitElement {
             background-color: #f0f0f0;
             flex-direction: column;
         }
-        .game-container {
-            
-            text-align: center;
-        }
         .header {
             box-sizing: border-box;
             width: 100%;
-            padding: 20px;
+            padding: 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 30px;
-            min-width: 350px;
+            min-width: 300px;
         }
-        .scoreboard {
-            font-size: 18px;
-            text-align: left;
-            width: 200px;
-        }
-        .grid {
-            display: none;
-            grid-template-columns: repeat(3, 100px);
-            grid-template-rows: repeat(3, 100px);
-            gap: 10px;
-            justify-content: center;
-        }
-        .cell {
-            width: 100px;
-            height: 100px;
-            background-color: lightgray;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 20px;
-            cursor: pointer;
-        }
-        .mole {
-            background-color: brown;
-            border-radius: 50%;
-        }
-        .difficulty-selector {
-            position: relative;
-            display: inline-block;
-            width: 150px;
-        }
-
-        select {
-            width: 100%;
-            padding: 10px 15px;
-            background-color: #fff;
-            font-size: 16px;
-            cursor: pointer;
-            background:#FFFFFF;
-            border-radius: 8px;
-            border: none;
-        }
-            
         .play-button {
             padding: 15px 30px;
             font-size: 20px;
@@ -84,42 +42,14 @@ class MoleGame extends LitElement {
             background: #0056b3;
         }
 
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
+        mole-grid {
+            display: none;
         }
-
-        .modal-content {
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            text-align: center;
-        }
-
-        .modal button {
-            padding: 10px 20px;
-            border: none;
-            background: #28a745;
-            color: white;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-
-        .points-final{
-            font-size: 30px;
-            font-weight: bold;
-            color: #28a745;
-        }
-
     `;
+
+    static properties = {
+        showModal: { type: Boolean },
+    };
 
     constructor() {
         super();
@@ -135,7 +65,7 @@ class MoleGame extends LitElement {
     }
 
     changeDifficulty(event) {
-        this.difficulty = event.target.value;
+        this.difficulty = event.detail;
         switch (this.difficulty) {
             case 'facil':
                 this.intervalTime = 1000;
@@ -150,12 +80,11 @@ class MoleGame extends LitElement {
     }
 
     startGame() {
-        this.gameStarted = true;
         this.score = 0;
         this.timeLeft = 60;
-        this.showModal = false;
         this.shadowRoot.querySelector('.play-button').style.display = 'none';
-        this.shadowRoot.querySelector('.grid').style.display = 'grid';
+        this.shadowRoot.querySelector('mole-grid').style.display = 'block';
+        this.gameStarted = true;
         this.timer = setInterval(() => {
             if (this.timeLeft > 0) {
                 const randomIndex = Math.floor(Math.random() * 9);
@@ -171,6 +100,16 @@ class MoleGame extends LitElement {
         }, this.intervalTime);
     }
 
+    restarGame() {
+        this.showModal = false;
+        this.gameStarted = false;
+        this.score = 0;
+        this.timeLeft = 60;
+        this.shadowRoot.querySelector('.play-button').style.display = 'block';
+        this.shadowRoot.querySelector('mole-grid').style.display = 'none';
+        clearInterval(this.timer);
+    }
+
     handleClick(index) {
         if (this.grid[index] && this.gameStarted) {
             this.score += 50;
@@ -181,38 +120,33 @@ class MoleGame extends LitElement {
 
     render() {
         return html`
-        <div class="header">
-                    <div class="scoreboard">
-                        <p><strong>Jugador:</strong> ${this.playerName}</p>
-                        <p><strong>Puntuación:</strong> ${this.score}</p>
-                        <p><strong>Tiempo restante:</strong> ${this.timeLeft}</p>
-                    </div>
-                    <div class="difficulty-selector">
-                        <select @change="${this.changeDifficulty}">
-                            <option value="facil">Fácil</option>
-                            <option value="medio">Medio</option>
-                            <option value="dificil">Difícil</option>
-                        </select>
-                    </div>
-                </div>
-            <div class="game-container">
-                
-                <button class="play-button" @click="${this.startGame}">Jugar</button>
-                <div class="grid">
-                    ${this.grid.map((hasMole, index) => html`<div class="cell ${hasMole ? 'mole' : ''}" @click="${() => this.handleClick(index)}">${hasMole ? '🐾' : ''}</div>`)}
-                </div>
+            <div class="header">
+                <scoreboard-component
+                    .playerName="${this.playerName}"
+                    .score="${this.score}"
+                    .timeLeft="${this.timeLeft}"
+                ></scoreboard-component>
+
+                <difficulty-selector .isDisabled="${this.gameStarted}"
+                    @difficulty-changed="${this.changeDifficulty}" >
+                </difficulty-selector>
             </div>
+
+            <div class="game-container">
+                <button class="play-button" @click="${this.startGame}">Jugar</button>
+                <mole-grid .grid="${this.grid}" @mole-clicked="${(e) => this.handleClick(e.detail.index)}"></mole-grid>
+            </div>
+
             ${this.showModal ? html`
-                <div class="modal">
-                    <div class="modal-content">
-                        <p>Total de puntos </p>
-                        <p class="points-final">${this.score}</p>
-                        <button @click="${this.startGame}">Jugar de nuevo</button>
-                    </div>
-                </div>
+                <end-modal
+                    .score="${this.score}"
+                    @restart-game="${this.restarGame}">
+                </end-modal>
             ` : ''}
         `;
     }
 }
 
 customElements.define('mole-game', MoleGame);
+
+
