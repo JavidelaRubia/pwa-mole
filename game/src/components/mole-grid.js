@@ -16,7 +16,7 @@ class MoleGrid extends LitElement {
             display: flex;
             justify-content: center;
             align-items: center;
-            cursor: pointer;
+            
             border-radius: 50%;
         }
 
@@ -30,6 +30,7 @@ class MoleGrid extends LitElement {
             border-radius:  0 0 40% 40%;
             position: absolute;
             z-index: 1;
+            cursor: pointer;
         }
 
         .half-hole {
@@ -56,16 +57,21 @@ class MoleGrid extends LitElement {
 
     static properties = {
         grid: { type: Array }
+        
     };
 
-    handleClick(index) {
+    handleClick(index, hasMole) {
+        if(!hasMole){
+            return;
+        }
         this.dispatchEvent(new CustomEvent('mole-clicked', {
             detail: { index },
             bubbles: true,
             composed: true
         }));
+
         if (navigator.vibrate) {
-            navigator.vibrate(200);
+            navigator.vibrate([200, 100, 200]); 
         }
     }
 
@@ -73,7 +79,7 @@ class MoleGrid extends LitElement {
         return html`
             <div class="grid">
                 ${this.grid.map((hasMole, index) => html`
-                    <div class="cell" @click="${() => this.handleClick(index)}">
+                    <div class="cell" @click="${() => this.handleClick(index, hasMole)}">
                         <div class="${hasMole ? 'mole' : ''}"></div>
                         <div class="half-hole"></div>
                     </div>

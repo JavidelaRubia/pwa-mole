@@ -13,7 +13,7 @@ class MoleGame extends LitElement {
             height: 100dvh;
             width: 100%;
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            background-color: #f4c493;
             flex-direction: column;
         }
         .header {
@@ -29,7 +29,7 @@ class MoleGame extends LitElement {
         .play-button {
             padding: 15px 30px;
             font-size: 20px;
-            background: #007bff;
+            background: #93b2f4;
             border: none;
             border-radius: 10px;
             color: white;
@@ -81,13 +81,20 @@ class MoleGame extends LitElement {
 
     startGame() {
         this.score = 0;
-        this.timeLeft = 60;
+        this.timeLeft = 5;
         this.shadowRoot.querySelector('.play-button').style.display = 'none';
         this.shadowRoot.querySelector('mole-grid').style.display = 'block';
         this.gameStarted = true;
+        this.previousIndex = -1;
+
         this.timer = setInterval(() => {
             if (this.timeLeft > 0) {
-                const randomIndex = Math.floor(Math.random() * 9);
+                let randomIndex;
+                do {
+                    randomIndex = Math.floor(Math.random() * 9);
+                } while (randomIndex === this.previousIndex);
+
+                this.previousIndex = randomIndex;
                 this.grid = Array(9).fill(false);
                 this.grid[randomIndex] = true;
                 this.timeLeft--;

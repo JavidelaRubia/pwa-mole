@@ -9,7 +9,7 @@ class LoginPage extends LitElement {
             align-items: center;
             height: 100vh;
             font-family: 'Poppins', sans-serif;
-            background-color: #f0f0f0;
+            background-color: #f4c493;
             
         }
 
@@ -48,7 +48,7 @@ class LoginPage extends LitElement {
         button {
             width: 100%;
             padding: 10px;
-            background:rgb(255, 196, 108);
+            background:#93b2f4;
             border: none;
             border-radius: 8px;
             color: white;
@@ -91,7 +91,7 @@ class LoginPage extends LitElement {
                     type="text"
                     @input="${this.handleInput}"
                     .value="${this.username}"
-                    placeholder="Nombre de usuario"
+                    placeholder="Nombre del jugador"
                 />
                 <button
                     @click="${this.handleLogin}"

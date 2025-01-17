@@ -12,6 +12,7 @@ class EndModal extends LitElement {
             display: flex;
             justify-content: center;
             align-items: center;
+            z-index: 100;
         }
         .modal-content {
             background: white;
@@ -22,7 +23,7 @@ class EndModal extends LitElement {
         button {
             padding: 10px 20px;
             border: none;
-            background: #28a745;
+            background: #93b2f4;
             color: white;
             border-radius: 8px;
             cursor: pointer;
