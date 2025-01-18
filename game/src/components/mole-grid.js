@@ -18,18 +18,29 @@ class MoleGrid extends LitElement {
             align-items: center;
         }
 
-        .mole {
+        .container-mole{
+            position: absolute;
             width: 100%;
-            height: 100%;
+            height: 200px;
+            bottom: 0;
+            
+        }
+
+        .container-mole.has-mole {
+            overflow: hidden;
+        }
+
+        .mole {
+            width: 100px;
+            height: 100px;
             background-image: url('/mole-icon.png');
             background-size: cover;
+            position: absolute;
             background-position: center;
             animation: jump 1s ease-in-out infinite;
-            position: absolute;
-            border-radius:  0% 0% 25% 25%;
+            border-radius:  0% 0% 20% 20%;
             z-index: 1;
             cursor: pointer;
-            bottom: 25px;
         }
 
         .mole.facil {
@@ -45,50 +56,49 @@ class MoleGrid extends LitElement {
         }
 
         .half-hole {
-            width: 100%;
-            height: 50%;
+            width: 100px;
+            height: 50px;
             background: black;
             border-radius:  50% 50% 50% 50%;
             position: absolute;
-            bottom: 0;
+            bottom: -17px;
         }
 
         .fake-half-hole {
-            width: 100%;
+            width: 100px;
             height: 40px;
             background: transparent;
             border-top: 20px solid black;
             border-radius: 40% 40% 0 0;
             position: absolute;
-            bottom: 5px;
+            bottom: -17px;
             z-index: 2;
             transform: rotate(180deg);
         }
         
         @keyframes jump {
             0% {
-                transform: translateY(100px); 
-                clip-path: inset(0 0 100% 0); 
+                transform: translateY(200px); 
             }
             50% {
-                transform: translateY(3px); 
-                clip-path: inset(0 0 0 0); 
+                transform: translateY(100px); 
+                
             }
             100% {
-                transform: translateY(100px); 
-                clip-path: inset(0 0 100% 0); 
+                transform: translateY(200px); 
+                
         }
 }
     `;
 
     static properties = {
         grid: { type: Array },
-        difficulty : { type: String }
-        
+        difficulty: { type: String }
+
     };
 
     handleClick(index, hasMole) {
-        if(!hasMole){
+        if (!hasMole) {
             return;
         }
         this.dispatchEvent(new CustomEvent('mole-clicked', {
@@ -98,7 +108,7 @@ class MoleGrid extends LitElement {
         }));
 
         if (navigator.vibrate) {
-            navigator.vibrate([200, 100, 200]); 
+            navigator.vibrate([200, 100, 200]);
         }
     }
 
@@ -107,9 +117,12 @@ class MoleGrid extends LitElement {
             <div class="grid">
                 ${this.grid.map((hasMole, index) => html`
                     <div class="cell" @click="${() => this.handleClick(index, hasMole)}">
-                        <div class="${hasMole ? 'mole' : ''} ${this.difficulty}"></div>
-                        <div class="half-hole"></div>
-                        <div class="${hasMole ? 'fake-half-hole' : ''} "></div>
+                        <div class="container-mole ${hasMole ? 'has-mole' : ''}">
+                            <div class="${hasMole ? 'mole' : ''} ${this.difficulty}"></div>
+                            <div class="half-hole"></div>
+                            
+                        </div>
+                        <div class="${hasMole ? 'fake-half-hole' : ''} fake-half-hole"></div>
                     </div>
                 `)}
             </div>
