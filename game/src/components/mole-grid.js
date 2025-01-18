@@ -75,7 +75,7 @@ class MoleGrid extends LitElement {
                 clip-path: inset(0 0 0 0); 
             }
             100% {
-                transform: translateY(100px); 
+                transform: translateY(90px); 
                 clip-path: inset(0 0 100% 0); 
         }
 }
@@ -109,7 +109,7 @@ class MoleGrid extends LitElement {
                     <div class="cell" @click="${() => this.handleClick(index, hasMole)}">
                         <div class="${hasMole ? 'mole' : ''} ${this.difficulty}"></div>
                         <div class="half-hole"></div>
-                        <div class="${hasMole ? 'fake-half-hole' : ''}"></div>
+                        <div class="${hasMole ? 'fake-half-hole' : ''} "></div>
                     </div>
                 `)}
             </div>
