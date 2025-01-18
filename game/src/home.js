@@ -11,13 +11,10 @@ class HomePage extends LitElement {
             height: 100vh;
             font-family: sans-serif;
             background: linear-gradient(135deg, #f4c493, #f8d3b3, #e8a673);
-
-
-            
         }
 
         .home-container {
-            max-width: 200px;
+            max-width: 220px;
             width: 100%;
             padding: 20px;
             background: white;
@@ -42,7 +39,7 @@ class HomePage extends LitElement {
             justify-content: center;
             align-items: baseline;
             text-transform:uppercase; 
-            font-size:18px; 
+            font-size:20px; 
             font-weight:700; 
             white-space: nowrap;
         }
@@ -114,6 +111,7 @@ class HomePage extends LitElement {
 
 
         input[type="text"] {
+            min-width: 100%;
             width: 100%;
             padding: 10px;
             margin-bottom: 20px;
@@ -185,7 +183,7 @@ class HomePage extends LitElement {
                         
             </div>
             <div class="home-container">
-                <p>Ingresa tu nombre para comenzar a jugar.</p>
+                <p><strong>Introduce tu nombre para jugar</strong></p>
                 <input
                     type="text"
                     @input="${this.handleInput}"

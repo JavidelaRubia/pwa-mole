@@ -6,6 +6,34 @@ class ScoreboardComponent extends LitElement {
             display: flex;
             justify-content: space-between;
             box-sizing: border-box;
+            font-family: sans-serif;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        p{
+            margin: 0;
+        }
+
+        .container-time{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            
+        }
+
+        .time { 
+            min-width: 40px;
+            font-weight: bold;  
+            color: white;  
+            background-color: #93b2f4;  
+            border-radius: 10px;  
+            padding: 5px;  
+            box-sizing: border-box;
+            width: fit-content;  
+            text-align: center;  
+            transition: background-color 0.3s ease;
         }
     `;
 
@@ -22,13 +50,27 @@ class ScoreboardComponent extends LitElement {
         this.timeLeft = 0;
     }
 
+    //comprobar si el tiempo restante es menor a 10 segundos
+    updated(changedProperties) {
+        if (changedProperties.has('timeLeft')) {
+            if (this.timeLeft < 10) {
+                this.shadowRoot.querySelector('.time').style.backgroundColor = 'red';
+            }
+        }
+    }
+
     render() {
         return html`
-            <div>
                 <p><strong>Jugador:</strong> ${this.playerName}</p>
                 <p><strong>Puntuación:</strong> ${this.score}</p>
-                <p><strong>Tiempo restante:</strong> ${this.timeLeft}</p>
-            </div>
+                <div class='container-time'>
+                    <p><strong>Tiempo:</strong></p>
+                    <div class='time'>
+                     <span > ${this.timeLeft}</span>
+                    </div>
+                </div>
+                
+                
         `;
     }
 }

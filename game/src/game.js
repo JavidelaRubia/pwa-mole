@@ -19,12 +19,11 @@ class MoleGame extends LitElement {
         .header {
             box-sizing: border-box;
             width: 100%;
-            padding: 30px;
+            padding: 20px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
-            min-width: 300px;
+            min-width: 320px;
         }
         .play-button {
             padding: 15px 30px;
@@ -45,12 +44,26 @@ class MoleGame extends LitElement {
         mole-grid {
             display: none;
         }
+
+        .container-tips{
+            width: 100%;
+            text-align: center;
+            margin-top: 20px;
+            padding: 0 20px;
+            box-sizing: border-box;
+            font-size: 16px;
+            max-width: 400px;
+        }
+
+
     `;
 
     static properties = {
         showModal: { type: Boolean },
         difficulty : { type: String }
     };
+
+    
 
     constructor() {
         super();
@@ -60,7 +73,8 @@ class MoleGame extends LitElement {
         this.intervalTime = 1000;
         this.difficulty = 'facil';
         this.timer = null;
-        this.timeLeft = 30;
+        this.totalTime = 30;
+        this.timeLeft = this.totalTime;
         this.gameStarted = false;
         this.showModal = false;
     }
@@ -82,8 +96,9 @@ class MoleGame extends LitElement {
 
     startGame() {
         this.score = 0;
-        this.timeLeft = 30;
+        this.timeLeft = this.totalTime;
         this.shadowRoot.querySelector('.play-button').style.display = 'none';
+        this.shadowRoot.querySelector('.container-tips').style.display = 'none';
         this.shadowRoot.querySelector('mole-grid').style.display = 'block';
         this.gameStarted = true;
         
@@ -115,13 +130,21 @@ class MoleGame extends LitElement {
         }, this.intervalTime);
     }
 
+    endGame() {
+        clearInterval(this.gameTimer);
+        clearInterval(this.moleTimer);
+        this.shadowRoot.querySelector('.play-button').style.display = 'block';
+        this.shadowRoot.querySelector('.container-tips').style.display = 'block';
+        this.shadowRoot.querySelector('mole-grid').style.display = 'none';
+        this.showModal = true;
+        this.requestUpdate();
+    }
+
     restarGame() {
         this.showModal = false;
         this.gameStarted = false;
         this.score = 0;
-        this.timeLeft = 60;
-        this.shadowRoot.querySelector('.play-button').style.display = 'block';
-        this.shadowRoot.querySelector('mole-grid').style.display = 'none';
+        this.timeLeft = this.totalTime;
         clearInterval(this.timer);
     }
 
@@ -155,6 +178,11 @@ class MoleGame extends LitElement {
                 <difficulty-selector .isDisabled="${this.gameStarted}"
                     @difficulty-changed="${this.changeDifficulty}" >
                 </difficulty-selector>
+            </div>
+            
+            <div class="container-tips">
+                <p>¡Tienes <strong>30 segundos</strong> para golpear tantos topos como puedas!</p>
+                <p>Si cambias la dificultad, obtendrás más puntos, pero los topos aparecerán más rápido.</p>
             </div>
 
             <div class="game-container">

@@ -65,13 +65,13 @@ class MoleGrid extends LitElement {
         }
 
         .fake-half-hole {
-            width: 100px;
-            height: 40px;
+            width: 101px;
+            height: 50px;
             background: transparent;
-            border-top: 20px solid black;
+            border-top: 17.5px solid black;
             border-radius: 40% 40% 0 0;
             position: absolute;
-            bottom: -17px;
+            bottom: -16.5px;
             z-index: 2;
             transform: rotate(180deg);
         }
@@ -87,6 +87,20 @@ class MoleGrid extends LitElement {
             100% {
                 transform: translateY(200px); 
                 
+        }
+
+        @media (hover: none) {
+            .mole {
+                -webkit-tap-highlight-color: transparent;
+            }
+        }
+
+        @supports (-webkit-touch-callout: none) {
+            .mole {
+                will-change: transform;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+            }
         }
 }
     `;
@@ -122,7 +136,7 @@ class MoleGrid extends LitElement {
                             <div class="half-hole"></div>
                             
                         </div>
-                        <div class="${hasMole ? 'fake-half-hole' : ''} fake-half-hole"></div>
+                        <div class="${hasMole ? 'fake-half-hole' : ''}"></div>
                     </div>
                 `)}
             </div>
