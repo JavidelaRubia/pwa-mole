@@ -14,7 +14,7 @@ class HomePage extends LitElement {
         }
 
         .home-container {
-            max-width: 220px;
+            max-width: 240px;
             width: 100%;
             padding: 20px;
             background: white;

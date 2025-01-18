@@ -17,12 +17,13 @@ class MoleGame extends LitElement {
             flex-direction: column;
         }
         .header {
+        
             box-sizing: border-box;
             width: 100%;
             padding: 20px 30px;
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
             min-width: 320px;
         }
         .play-button {
@@ -176,7 +177,7 @@ class MoleGame extends LitElement {
             </div>
             
             <div class="container-tips">
-                <p>¡Tienes <strong>30 segundos</strong> para golpear tantos topos como puedas!</p>
+                <p>${this.playerName}, ¡Tienes <strong>30 segundos</strong> para golpear tantos topos como puedas!</p>
                 <p>Si cambias la dificultad, obtendrás más puntos, pero los topos aparecerán más rápido.</p>
             </div>
 
