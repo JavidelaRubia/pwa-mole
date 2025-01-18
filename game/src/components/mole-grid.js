@@ -24,11 +24,12 @@ class MoleGrid extends LitElement {
             background-image: url('/mole-icon.png');
             background-size: cover;
             background-position: center;
-            animation: jump 1.5s ease-in-out infinite;
+            animation: jump 3s ease-in-out infinite;
             position: absolute;
+            border-radius:  0% 0% 20% 20%;
             z-index: 1;
             cursor: pointer;
-            border-radius:  0% 0% 20% 20%;
+            bottom: 25px;
         }
 
         .half-hole {
@@ -41,28 +42,28 @@ class MoleGrid extends LitElement {
         }
 
         .fake-half-hole {
-            width: 100%;
-            height: 35px;
+            width: 98%;
+            height: 40px;
             background: transparent;
-            border-top: 15px solid black;
-            border-radius: 50% 50% 0 0;
+            border-top: 20px solid black;
+            border-radius: 45% 45% 0 0;
             position: absolute;
-            bottom: 0;
+            bottom: 5px;
             z-index: 2;
             transform: rotate(180deg);
         }
         
         @keyframes jump {
             0% {
-                transform: translateY(90px); 
+                transform: translateY(100px); 
                 clip-path: inset(0 0 100% 0); 
             }
             50% {
-                transform: translateY(-10px); 
-                clip-path: inset(0 0 8% 0); 
+                transform: translateY(3px); 
+                clip-path: inset(0 0 0 0); 
             }
             100% {
-                transform: translateY(90px); 
+                transform: translateY(100px); 
                 clip-path: inset(0 0 100% 0); 
         }
 }

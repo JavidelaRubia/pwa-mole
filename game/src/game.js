@@ -56,7 +56,7 @@ class MoleGame extends LitElement {
         this.grid = Array(9).fill(false);
         this.score = 0;
         this.playerName = localStorage.getItem('userName') || 'Jugador';
-        this.intervalTime = 1500;
+        this.intervalTime = 3000;
         this.difficulty = 'facil';
         this.timer = null;
         this.timeLeft = 60;
