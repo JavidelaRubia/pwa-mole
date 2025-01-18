@@ -49,6 +49,7 @@ class MoleGame extends LitElement {
 
     static properties = {
         showModal: { type: Boolean },
+        difficulty : { type: String }
     };
 
     constructor() {
@@ -56,10 +57,10 @@ class MoleGame extends LitElement {
         this.grid = Array(9).fill(false);
         this.score = 0;
         this.playerName = localStorage.getItem('userName') || 'Jugador';
-        this.intervalTime = 3000;
+        this.intervalTime = 1000;
         this.difficulty = 'facil';
         this.timer = null;
-        this.timeLeft = 60;
+        this.timeLeft = 30;
         this.gameStarted = false;
         this.showModal = false;
     }
@@ -81,29 +82,36 @@ class MoleGame extends LitElement {
 
     startGame() {
         this.score = 0;
-        this.timeLeft = 60;
+        this.timeLeft = 30;
         this.shadowRoot.querySelector('.play-button').style.display = 'none';
         this.shadowRoot.querySelector('mole-grid').style.display = 'block';
         this.gameStarted = true;
-        this.previousIndex = -1;
+        
 
-        this.timer = setInterval(() => {
+        // Timer separado para el tiempo del juego (siempre 1 segundo)
+        this.gameTimer = setInterval(() => {
             if (this.timeLeft > 0) {
-                let randomIndex;
-                do {
-                    randomIndex = Math.floor(Math.random() * 9);
-                } while (randomIndex === this.previousIndex);
-
-                this.previousIndex = randomIndex;
-                this.grid = Array(9).fill(false);
-                this.grid[randomIndex] = true;
                 this.timeLeft--;
                 this.requestUpdate();
             } else {
-                clearInterval(this.timer);
-                this.showModal = true;
-                this.requestUpdate();
+                this.endGame();
             }
+        }, 1000);
+        this.startMoleTimer();
+    }
+
+    startMoleTimer() {
+        this.previousIndex = -1;
+        this.moleTimer = setInterval(() => {
+            let randomIndex;
+            do {
+                randomIndex = Math.floor(Math.random() * 9);
+            } while (randomIndex === this.previousIndex);
+
+            this.previousIndex = randomIndex;
+            this.grid = Array(9).fill(false);
+            this.grid[randomIndex] = true;
+            this.requestUpdate();
         }, this.intervalTime);
     }
 
@@ -119,7 +127,17 @@ class MoleGame extends LitElement {
 
     handleClick(index) {
         if (this.grid[index] && this.gameStarted) {
-            this.score += 50;
+            switch (this.difficulty) {
+                case 'facil':
+                    this.score += 10;
+                    break;
+                case 'medio':
+                    this.score += 20;
+                    break;
+                case 'dificil':
+                    this.score += 30;
+                    break;
+            }
             this.grid[index] = false;
             this.requestUpdate();
         }
@@ -141,7 +159,7 @@ class MoleGame extends LitElement {
 
             <div class="game-container">
                 <button class="play-button" @click="${this.startGame}">Jugar</button>
-                <mole-grid .grid="${this.grid}" @mole-clicked="${(e) => this.handleClick(e.detail.index)}"></mole-grid>
+                <mole-grid .difficulty="${this.difficulty}" .grid="${this.grid}" @mole-clicked="${(e) => this.handleClick(e.detail.index)}"></mole-grid>
             </div>
 
             ${this.showModal ? html`

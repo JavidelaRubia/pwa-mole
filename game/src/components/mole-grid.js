@@ -24,12 +24,24 @@ class MoleGrid extends LitElement {
             background-image: url('/mole-icon.png');
             background-size: cover;
             background-position: center;
-            animation: jump 3s ease-in-out infinite;
+            animation: jump 1s ease-in-out infinite;
             position: absolute;
             border-radius:  0% 0% 20% 20%;
             z-index: 1;
             cursor: pointer;
             bottom: 25px;
+        }
+
+        .mole.facil {
+            animation-duration: 1s;
+        }
+
+        .mole.medio {
+            animation-duration: 0.8s;
+        }
+
+        .mole.dificil {
+            animation-duration: 0.6s;
         }
 
         .half-hole {
@@ -42,11 +54,11 @@ class MoleGrid extends LitElement {
         }
 
         .fake-half-hole {
-            width: 98%;
+            width: 100%;
             height: 40px;
             background: transparent;
             border-top: 20px solid black;
-            border-radius: 45% 45% 0 0;
+            border-radius: 40% 40% 0 0;
             position: absolute;
             bottom: 5px;
             z-index: 2;
@@ -70,7 +82,8 @@ class MoleGrid extends LitElement {
     `;
 
     static properties = {
-        grid: { type: Array }
+        grid: { type: Array },
+        difficulty : { type: String }
         
     };
 
@@ -94,9 +107,9 @@ class MoleGrid extends LitElement {
             <div class="grid">
                 ${this.grid.map((hasMole, index) => html`
                     <div class="cell" @click="${() => this.handleClick(index, hasMole)}">
-                        <div class="${hasMole ? 'mole' : ''}"></div>
+                        <div class="${hasMole ? 'mole' : ''} ${this.difficulty}"></div>
                         <div class="half-hole"></div>
-                        <div class="${hasMole ? 'fake-half-hole' : ''} fake-half-hole"></div>
+                        <div class="${hasMole ? 'fake-half-hole' : ''}"></div>
                     </div>
                 `)}
             </div>

@@ -63,6 +63,8 @@ class HomePage extends LitElement {
             position: relative;
             width:35px;
             height:35px;
+            margin: 3px;
+            box-sizing: border-box;
         }
 
         .half-hole {
@@ -72,18 +74,6 @@ class HomePage extends LitElement {
             height: 50%;
             background: black;
             border-radius:  50% 50% 50% 50%;
-        }
-
-        .mole {
-            width: 100%;
-            height: 100%;
-            background-image: url('/mole-icon.png');
-            background-size: cover;
-            background-position: center;
-            animation: jump 1s ease-in-out infinite;
-            border-radius:  0 0 40% 40%;
-            position: absolute;
-            z-index: 1;
         }
         
         @media (min-width: 500px) {
@@ -97,18 +87,6 @@ class HomePage extends LitElement {
             .title-mole{
                 width: 80px;
                 height: 80px;
-            }
-        }
-
-        @keyframes jump {
-            0% {
-                transform: translateY(0); /* Empieza en la posición original */
-            }
-            50% {
-                transform: translateY(-20px); /* Sube 20px */
-            }
-            100% {
-                transform: translateY(0); /* Vuelve a la posición original */
             }
         }
 
@@ -176,7 +154,6 @@ class HomePage extends LitElement {
                     </div>
                     <div class="title-mole">
                         <div class="half-hole"></div>
-                        <div class="mole"></div>
                     </div>
                     
                     <div>
