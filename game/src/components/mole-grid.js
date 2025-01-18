@@ -26,7 +26,7 @@ class MoleGrid extends LitElement {
             background-position: center;
             animation: jump 1s ease-in-out infinite;
             position: absolute;
-            border-radius:  0% 0% 20% 20%;
+            border-radius:  0% 0% 25% 25%;
             z-index: 1;
             cursor: pointer;
             bottom: 25px;
@@ -75,7 +75,7 @@ class MoleGrid extends LitElement {
                 clip-path: inset(0 0 0 0); 
             }
             100% {
-                transform: translateY(90px); 
+                transform: translateY(100px); 
                 clip-path: inset(0 0 100% 0); 
         }
 }
