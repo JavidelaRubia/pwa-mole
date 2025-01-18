@@ -1,11 +1,18 @@
 import { defineConfig } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
+import { resolve } from 'path';
+
 
 export default defineConfig({
     base: '/',
     build: {
         outDir: 'dist',
     },
+    test: {
+        environment: 'jsdom', 
+        globals: true,        
+        setupFiles: './test/setup.js', 
+      },
     plugins: [
         VitePWA({
             registerType: 'autoUpdate',

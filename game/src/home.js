@@ -158,7 +158,7 @@ class HomePage extends LitElement {
         this.username = event.target.value;
     }
 
-    handleLogin() {
+    handleLogin() {        
         if (this.username.trim()) {
             setUserName(this.username);
             navigateTo('/game');
@@ -188,7 +188,7 @@ class HomePage extends LitElement {
                     .value="${this.username}"
                     placeholder="Nombre del jugador"
                 />
-                <button
+                <button id="login-button"
                     @click="${this.handleLogin}"
                     ?disabled="${!this.username.trim()}"
                 >

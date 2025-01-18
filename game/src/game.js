@@ -79,6 +79,8 @@ class MoleGame extends LitElement {
 
     changeDifficulty(event) {
         this.difficulty = event.detail;
+        console.log(this.difficulty);
+        
         switch (this.difficulty) {
             case 'facil':
                 this.intervalTime = 1000;
@@ -93,12 +95,13 @@ class MoleGame extends LitElement {
     }
 
     startGame() {
+        this.gameStarted = true;
         this.score = 0;
         this.timeLeft = this.totalTime;
         this.shadowRoot.querySelector('.play-button').style.display = 'none';
         this.shadowRoot.querySelector('.container-tips').style.display = 'none';
         this.shadowRoot.querySelector('mole-grid').style.display = 'block';
-        this.gameStarted = true;
+        
         
         this.gameTimer = setInterval(() => {
             if (this.timeLeft > 0) {
