@@ -42,7 +42,6 @@ class DifficultySelector extends LitElement {
             transition: transform 0.3s ease;
         }
 
-
         select:disabled {
             background: #e0e0e0;
             pointer-events: none;

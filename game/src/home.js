@@ -109,7 +109,6 @@ class HomePage extends LitElement {
             }
         }
 
-
         input[type="text"] {
             min-width: 100%;
             width: 100%;
@@ -169,18 +168,17 @@ class HomePage extends LitElement {
     render() {
         return html`
             <div class="title-container">
-                    <div>
-                        <h1>M</h1>      
-                    </div>
-                    <div class="title-mole">
-                        <div class="half-hole"></div>
-                        <div class="mole"></div>
-                    </div>
-                    
-                    <div>
-                        <h1>le Game</h1>      
-                    </div>
-                        
+                <div>
+                    <h1>M</h1>      
+                </div>
+                <div class="title-mole">
+                    <div class="half-hole"></div>
+                    <div class="mole"></div>
+                </div>
+                
+                <div>
+                    <h1>le Game</h1>      
+                </div>    
             </div>
             <div class="home-container">
                 <p><strong>Introduce tu nombre para jugar</strong></p>

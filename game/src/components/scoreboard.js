@@ -20,7 +20,6 @@ class ScoreboardComponent extends LitElement {
             justify-content: space-between;
             align-items: center;
             gap: 10px;
-            
         }
 
         .time { 
@@ -49,12 +48,12 @@ class ScoreboardComponent extends LitElement {
         this.score = 0;
         this.timeLeft = 0;
     }
-
-    //comprobar si el tiempo restante es menor a 10 segundos
     updated(changedProperties) {
         if (changedProperties.has('timeLeft')) {
             if (this.timeLeft < 10) {
                 this.shadowRoot.querySelector('.time').style.backgroundColor = 'red';
+            }else{
+                this.shadowRoot.querySelector('.time').style.backgroundColor = '#93b2f4';
             }
         }
     }

@@ -8,6 +8,7 @@ class MoleGrid extends LitElement {
             grid-template-rows: repeat(3, 100px);
             gap: 10px;
         }
+
         .cell {
             position: relative;
             width: 100px;
@@ -23,7 +24,6 @@ class MoleGrid extends LitElement {
             width: 100%;
             height: 200px;
             bottom: 0;
-            
         }
 
         .container-mole.has-mole {
@@ -85,8 +85,7 @@ class MoleGrid extends LitElement {
                 
             }
             100% {
-                transform: translateY(200px); 
-                
+                transform: translateY(200px);  
         }
 
         @media (hover: none) {

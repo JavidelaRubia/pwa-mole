@@ -55,15 +55,12 @@ class MoleGame extends LitElement {
             max-width: 400px;
         }
 
-
     `;
 
     static properties = {
         showModal: { type: Boolean },
         difficulty : { type: String }
     };
-
-    
 
     constructor() {
         super();
@@ -102,8 +99,6 @@ class MoleGame extends LitElement {
         this.shadowRoot.querySelector('mole-grid').style.display = 'block';
         this.gameStarted = true;
         
-
-        // Timer separado para el tiempo del juego (siempre 1 segundo)
         this.gameTimer = setInterval(() => {
             if (this.timeLeft > 0) {
                 this.timeLeft--;
