@@ -16,8 +16,6 @@ class MoleGrid extends LitElement {
             display: flex;
             justify-content: center;
             align-items: center;
-            
-            border-radius: 50%;
         }
 
         .mole {
@@ -26,11 +24,11 @@ class MoleGrid extends LitElement {
             background-image: url('/mole-icon.png');
             background-size: cover;
             background-position: center;
-            animation: jump 1s ease-in-out infinite;
-            border-radius:  0 0 40% 40%;
+            animation: jump 1.5s ease-in-out infinite;
             position: absolute;
             z-index: 1;
             cursor: pointer;
+            border-radius:  0% 0% 20% 20%;
         }
 
         .half-hole {
@@ -42,17 +40,32 @@ class MoleGrid extends LitElement {
             bottom: 0;
         }
 
+        .fake-half-hole {
+            width: 100%;
+            height: 35px;
+            background: transparent;
+            border-top: 15px solid black;
+            border-radius: 50% 50% 0 0;
+            position: absolute;
+            bottom: 0;
+            z-index: 2;
+            transform: rotate(180deg);
+        }
+        
         @keyframes jump {
             0% {
-                transform: translateY(0); /* Empieza en la posición original */
+                transform: translateY(90px); 
+                clip-path: inset(0 0 100% 0); 
             }
             50% {
-                transform: translateY(-20px); /* Sube 20px */
+                transform: translateY(-10px); 
+                clip-path: inset(0 0 8% 0); 
             }
             100% {
-                transform: translateY(0); /* Vuelve a la posición original */
-            }
+                transform: translateY(90px); 
+                clip-path: inset(0 0 100% 0); 
         }
+}
     `;
 
     static properties = {
@@ -82,6 +95,7 @@ class MoleGrid extends LitElement {
                     <div class="cell" @click="${() => this.handleClick(index, hasMole)}">
                         <div class="${hasMole ? 'mole' : ''}"></div>
                         <div class="half-hole"></div>
+                        <div class="${hasMole ? 'fake-half-hole' : ''} fake-half-hole"></div>
                     </div>
                 `)}
             </div>

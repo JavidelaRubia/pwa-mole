@@ -2,7 +2,7 @@
 import { html, render } from 'lit';
 import '/style.css';
 import './src/game.js';
-import './src/login.js';
+import './src/home.js';
 
 // Obtener el nombre del usuario desde localStorage
 let userName = localStorage.getItem('userName') || '';
@@ -31,13 +31,13 @@ const handleRoute = (path) => {
 
     switch (path) {
         case '/':
-            render(html`<login-page></login-page>`, document.body);
+            render(html`<home-page></home-page>`, document.body);
             break;
         case '/game':
             render(html`<mole-game></mole-game>`, document.body);
             break;
         default:
-            // Redirigir a login si la ruta no existe o no está autorizado
+            // Redirigir a home si la ruta no existe o no está autorizado
             if (window.location.pathname !== '/') {
                 navigateTo('/');
             }

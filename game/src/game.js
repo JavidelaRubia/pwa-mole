@@ -13,7 +13,7 @@ class MoleGame extends LitElement {
             height: 100dvh;
             width: 100%;
             font-family: Arial, sans-serif;
-            background-color: #f4c493;
+             background: linear-gradient(135deg, #f4c493, #f8d3b3, #e8a673);
             flex-direction: column;
         }
         .header {
@@ -56,7 +56,7 @@ class MoleGame extends LitElement {
         this.grid = Array(9).fill(false);
         this.score = 0;
         this.playerName = localStorage.getItem('userName') || 'Jugador';
-        this.intervalTime = 1000;
+        this.intervalTime = 1500;
         this.difficulty = 'facil';
         this.timer = null;
         this.timeLeft = 60;
@@ -81,7 +81,7 @@ class MoleGame extends LitElement {
 
     startGame() {
         this.score = 0;
-        this.timeLeft = 5;
+        this.timeLeft = 60;
         this.shadowRoot.querySelector('.play-button').style.display = 'none';
         this.shadowRoot.querySelector('mole-grid').style.display = 'block';
         this.gameStarted = true;
