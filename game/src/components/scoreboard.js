@@ -65,7 +65,7 @@ class ScoreboardComponent extends LitElement {
                 <div class='container-time'>
                     <p><strong>Tiempo:</strong></p>
                     <div class='time'>
-                     <span > ${this.timeLeft}</span>
+                     <span >${this.timeLeft}</span>
                     </div>
                 </div>
                 

@@ -45,6 +45,7 @@ class DifficultySelector extends LitElement {
         select:disabled {
             background: #e0e0e0;
             pointer-events: none;
+            cursor: not-allowed;
         
         }
 
@@ -64,7 +65,7 @@ class DifficultySelector extends LitElement {
 
     static properties = {
         difficulty: { type: String },
-        isDisabled: { type: Boolean }
+        isDisabled: { type: Boolean, reflect: true, attribute: 'disabled' }
     };
 
     constructor() {
@@ -73,13 +74,24 @@ class DifficultySelector extends LitElement {
         this.isDisabled = false;
     }
 
+    updated(changedProperties) {
+        if (changedProperties.has('isDisabled')) {
+            const select = this.shadowRoot.querySelector('select');
+            if (select) {
+                select.disabled = this.isDisabled;
+            }
+        }
+    }
+
     handleChange(event) {
-        this.difficulty = event.target.value;
-        this.dispatchEvent(new CustomEvent('difficulty-changed', {
-            detail: this.difficulty,
-            bubbles: true,
-            composed: true
-        }));
+        if (!this.isDisabled) {
+            this.difficulty = event.target.value;
+            this.dispatchEvent(new CustomEvent('difficulty-changed', {
+                detail: this.difficulty,
+                bubbles: true,
+                composed: true
+            }));
+        }
     }
 
     render() {

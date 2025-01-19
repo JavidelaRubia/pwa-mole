@@ -55,12 +55,12 @@ class MoleGame extends LitElement {
             font-size: 16px;
             max-width: 400px;
         }
-
     `;
 
     static properties = {
         showModal: { type: Boolean },
-        difficulty : { type: String }
+        difficulty : { type: String },
+        gameStarted: { type: Boolean },
     };
 
     constructor() {
@@ -78,9 +78,8 @@ class MoleGame extends LitElement {
     }
 
     changeDifficulty(event) {
-        this.difficulty = event.detail;
-        console.log(this.difficulty);
-        
+        if (!this.gameStarted) {
+        this.difficulty = event.detail;   
         switch (this.difficulty) {
             case 'facil':
                 this.intervalTime = 1000;
@@ -91,6 +90,7 @@ class MoleGame extends LitElement {
             case 'dificil':
                 this.intervalTime = 500;
                 break;
+        }
         }
     }
 
