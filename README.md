@@ -19,12 +19,14 @@ Este es un juego de Mole Game desarrollado como Progressive Web App (PWA) utiliz
 ## Instalación
 
 1. Clona el repositorio:
+
 ```bash
 git clone <url-del-repositorio>
 cd <nombre-del-proyecto>
 ```
 
 2. Instala las dependencias:
+
 ```bash
 npm install
 ```
@@ -44,11 +46,13 @@ La aplicación estará disponible en `http://localhost:5173`
 El proyecto utiliza @web/test-runner para los tests unitarios.
 
 Para ejecutar los tests:
+
 ```bash
 npm run test
 ```
 
 Para ejecutar los tests en modo watch:
+
 ```bash
 npm run test:watch
 ```
@@ -84,4 +88,3 @@ Los archivos de la build se generarán en el directorio `dist/`
 - @web/test-runner
 - @open-wc/testing
 - Sinon
-
