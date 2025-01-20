@@ -34,12 +34,21 @@ class EndModal extends LitElement {
     score: { type: Number },
   };
 
+  handleRestartGame() {
+    this.dispatchEvent(
+      new CustomEvent("restart-game", {
+        bubbles: true,
+        composed: true,
+      }),
+    );
+  }
+
   render() {
     return html`
       <div class="modal">
         <div class="modal-content">
           <p>Total de puntos: ${this.score}</p>
-          <button @click="${() => this.dispatchEvent(new Event("restart-game"))}">Jugar de nuevo</button>
+          <button @click="${() => this.handleRestartGame()}">Jugar de nuevo</button>
         </div>
       </div>
     `;

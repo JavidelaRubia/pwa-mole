@@ -141,17 +141,17 @@ class MoleGrid extends LitElement {
     difficulty: { type: String },
   };
 
-  showHitEffect(cell) {
+  async showHitEffect(cell) {
     const hitElement = cell.querySelector(".hit");
     if (hitElement && !hitElement.classList.contains("show")) {
       hitElement.classList.add("show");
-      setTimeout(() => {
-        hitElement.classList.remove("show");
-      }, 200);
+      await this.updateComplete;
+      await new Promise((resolve) => setTimeout(resolve, 200));
+      hitElement.classList.remove("show");
     }
   }
 
-  handleClick(index, hasMole, event) {
+  async handleClick(index, hasMole, event) {
     if (!hasMole) {
       return;
     }
@@ -164,7 +164,7 @@ class MoleGrid extends LitElement {
     );
 
     const cell = event.currentTarget;
-    this.showHitEffect(cell);
+    await this.showHitEffect(cell);
 
     if (navigator.vibrate) {
       navigator.vibrate([200, 100, 200]);

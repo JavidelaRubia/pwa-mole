@@ -35,6 +35,12 @@ class MoleGame extends LitElement {
       cursor: pointer;
       transition: background 0.3s ease;
       margin-top: 50px;
+      &.hidden {
+        display: none;
+      }
+      &.show {
+        display: block;
+      }
     }
 
     .play-button:hover {
@@ -43,6 +49,12 @@ class MoleGame extends LitElement {
 
     mole-grid {
       display: none;
+      &.hidden {
+        display: none;
+      }
+      &.show {
+        display: block;
+      }
     }
 
     .container-tips {
@@ -53,6 +65,12 @@ class MoleGame extends LitElement {
       box-sizing: border-box;
       font-size: 16px;
       max-width: 400px;
+      &.hidden {
+        display: none;
+      }
+      &.show {
+        display: block;
+      }
     }
   `;
 
@@ -97,10 +115,6 @@ class MoleGame extends LitElement {
     this.gameStarted = true;
     this.score = 0;
     this.timeLeft = this.totalTime;
-    this.shadowRoot.querySelector(".play-button").style.display = "none";
-    this.shadowRoot.querySelector(".container-tips").style.display = "none";
-    this.shadowRoot.querySelector("mole-grid").style.display = "block";
-
     this.gameTimer = setInterval(() => {
       if (this.timeLeft > 0) {
         this.timeLeft--;
@@ -130,16 +144,13 @@ class MoleGame extends LitElement {
   endGame() {
     clearInterval(this.gameTimer);
     clearInterval(this.moleTimer);
-    this.shadowRoot.querySelector(".play-button").style.display = "block";
-    this.shadowRoot.querySelector(".container-tips").style.display = "block";
-    this.shadowRoot.querySelector("mole-grid").style.display = "none";
+    this.gameStarted = false;
     this.showModal = true;
     this.requestUpdate();
   }
 
   restarGame() {
     this.showModal = false;
-    this.gameStarted = false;
     this.score = 0;
     this.timeLeft = this.totalTime;
     clearInterval(this.timer);
@@ -176,14 +187,15 @@ class MoleGame extends LitElement {
         </difficulty-selector>
       </div>
 
-      <div class="container-tips">
+      <div class="container-tips ${this.gameStarted ? "hidden" : "show"}">
         <p>${this.playerName}, ¡Tienes <strong>30 segundos</strong> para golpear tantos topos como puedas!</p>
         <p>Si cambias la dificultad, obtendrás más puntos, pero los topos aparecerán más rápido.</p>
       </div>
 
       <div class="game-container">
-        <button class="play-button" @click="${this.startGame}">Jugar</button>
+        <button class="play-button ${this.gameStarted ? "hidden" : "show"}" @click="${this.startGame}">Jugar</button>
         <mole-grid
+          class="${this.gameStarted ? "show" : "hidden"}"
           .difficulty="${this.difficulty}"
           .grid="${this.grid}"
           @mole-clicked="${(e) => this.handleClick(e.detail.index)}"

@@ -55,8 +55,5 @@ document.addEventListener("DOMContentLoaded", () => {
 // Función para guardar el nombre del usuario
 export const setUserName = (name) => {
   userName = name;
-  if (name.length > 15) {
-    userName = name.slice(0, 15);
-  }
   localStorage.setItem("userName", userName);
 };

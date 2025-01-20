@@ -162,6 +162,9 @@ class HomePage extends LitElement {
 
   handleLogin() {
     if (this.username.trim()) {
+      if (this.username.length > 15) {
+        this.username = this.username.slice(0, 15);
+      }
       setUserName(this.username);
       navigateTo("/game");
     }

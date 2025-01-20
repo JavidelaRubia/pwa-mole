@@ -15,8 +15,8 @@ describe("MoleGame", () => {
     await el.updateComplete;
     const moleGrid = el.shadowRoot.querySelector("mole-grid");
     const playButton = el.shadowRoot.querySelector(".play-button");
-    expect(playButton.style.display).to.equal("none");
-    expect(moleGrid.style.display).to.equal("block");
+    expect(playButton.classList.contains("hidden")).to.be.true;
+    expect(moleGrid.classList.contains("show")).to.be.true;
   });
 
   it("Cambio dificultad antes de empezar el juego", async () => {
