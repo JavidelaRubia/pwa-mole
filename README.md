@@ -1,12 +1,18 @@
+# Author
+
+Javier de la Rubia Sánchez
+
 # Mole Game PWA
 
-Este es un juego de Mole Game desarrollado como Progressive Web App (PWA) utilizando Vite y LitElement.
+Mole Game es un juego desarrollado como Progressive Web App (PWA) utilizando Vite y LitElement.
 
 ## Características
 
 - Juego clásico de Whack-a-Mole
+- Registro de usuario
 - Tres niveles de dificultad
-- Sistema de puntuación
+- 30 segundos en cada intento
+- Sistema de puntuación según dificultad (facil: 10 puntos, medio: 20 puntos, dificil: 30 puntos)
 - Diseño responsive
 - PWA instalable
 - Tests unitarios
@@ -14,15 +20,15 @@ Este es un juego de Mole Game desarrollado como Progressive Web App (PWA) utiliz
 ## Requisitos Previos
 
 - Node.js (versión 14 o superior)
-- npm (viene con Node.js)
+- npm
 
 ## Instalación
 
 1. Clona el repositorio:
 
 ```bash
-git clone <url-del-repositorio>
-cd <nombre-del-proyecto>
+git clone https://github.com/JavidelaRubia/pwa-mole.git
+cd pwa-mole
 ```
 
 2. Instala las dependencias:
@@ -38,7 +44,6 @@ Para ejecutar la aplicación en modo desarrollo:
 ```bash
 npm run dev
 ```
-
 La aplicación estará disponible en `http://localhost:5173`
 
 ## Tests
@@ -51,12 +56,6 @@ Para ejecutar los tests:
 npm run test
 ```
 
-Para ejecutar los tests en modo watch:
-
-```bash
-npm run test:watch
-```
-
 ## Construcción
 
 Para construir la aplicación para producción:
@@ -67,18 +66,11 @@ npm run build
 
 Los archivos de la build se generarán en el directorio `dist/`
 
-## Estructura del Proyecto
 
-```
-├── src/
-│   ├── components/     # Componentes LitElement
-│   ├── views/         # Vistas/páginas
-│   ├── app.js         # Componente principal
-│   └── index.html     # Punto de entrada HTML
-├── test/
-│   └── components/    # Tests unitarios
-├── public/           # Archivos estáticos
-└── vite.config.js    # Configuración de Vite
+Para analizar y corregir problemas de estilo y calidad en el código:
+
+```bash
+npm run lint
 ```
 
 ## Tecnologías Utilizadas
@@ -88,3 +80,6 @@ Los archivos de la build se generarán en el directorio `dist/`
 - @web/test-runner
 - @open-wc/testing
 - Sinon
+- ESLint
+- Prettier
+
