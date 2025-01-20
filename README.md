@@ -83,3 +83,7 @@ npm run lint
 - ESLint
 - Prettier
 
+## Iconos
+
+[Mole-icon](https://www.flaticon.es/iconos-gratis/fauna)
+[Choque](https://www.flaticon.es/iconos-gratis/choque)
