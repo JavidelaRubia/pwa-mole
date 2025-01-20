@@ -20,6 +20,10 @@ class MoleGrid extends LitElement {
       -webkit-tap-highlight-color: transparent;
     }
 
+    .cell.disabled {
+      pointer-events: none;
+    }
+
     .container-mole {
       position: absolute;
       width: 100%;
@@ -121,7 +125,7 @@ class MoleGrid extends LitElement {
 
     .hit.show {
       display: block;
-      animation: hit 0.15s ease-in-out forwards;
+      animation: hit 0.2s ease-in-out forwards;
     }
 
     @keyframes hit {
@@ -147,7 +151,7 @@ class MoleGrid extends LitElement {
       hitElement.classList.add("show");
       setTimeout(() => {
         hitElement.classList.remove("show");
-      }, 150); // Duración de la animación
+      }, 200);
     }
   }
 
@@ -156,9 +160,6 @@ class MoleGrid extends LitElement {
       return;
     }
 
-    const cell = event.currentTarget;
-    this.showHitEffect(cell);
-
     this.dispatchEvent(
       new CustomEvent("mole-clicked", {
         detail: { index },
@@ -166,6 +167,9 @@ class MoleGrid extends LitElement {
         composed: true,
       }),
     );
+
+    const cell = event.currentTarget;
+    this.showHitEffect(cell);
 
     if (navigator.vibrate) {
       navigator.vibrate([200, 100, 200]);
@@ -177,13 +181,13 @@ class MoleGrid extends LitElement {
       <div class="grid">
         ${this.grid.map(
           (hasMole, index) => html`
-            <div class="cell" @click="${(e) => this.handleClick(index, hasMole, e)}">
+            <div class="cell ${this.hitted ? "disabled" : ""}" @click="${(e) => this.handleClick(index, hasMole, e)}">
               <div class="container-mole ${hasMole ? "has-mole" : ""}">
                 <div class="${hasMole ? "mole" : ""} ${this.difficulty}"></div>
                 <div class="half-hole"></div>
               </div>
               <div class="${hasMole ? "fake-half-hole" : ""}"></div>
-              <div class="hit ${hasMole && this.hitted ? "show" : ""}"></div>
+              <div class="hit ${this.hitted ? "show" : ""}"></div>
             </div>
           `,
         )}
