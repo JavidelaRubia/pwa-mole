@@ -134,7 +134,7 @@ class MoleGrid extends LitElement {
         opacity: 0;
       }
       100% {
-        transform: scale(1.5);
+        transform: scale(1.7);
         opacity: 1;
       }
     }
@@ -147,7 +147,7 @@ class MoleGrid extends LitElement {
 
   showHitEffect(cell) {
     const hitElement = cell.querySelector(".hit");
-    if (hitElement) {
+    if (hitElement && !hitElement.classList.contains("show")) {
       hitElement.classList.add("show");
       setTimeout(() => {
         hitElement.classList.remove("show");
@@ -159,7 +159,6 @@ class MoleGrid extends LitElement {
     if (!hasMole) {
       return;
     }
-
     this.dispatchEvent(
       new CustomEvent("mole-clicked", {
         detail: { index },
@@ -174,6 +173,7 @@ class MoleGrid extends LitElement {
     if (navigator.vibrate) {
       navigator.vibrate([200, 100, 200]);
     }
+    this.requestUpdate();
   }
 
   render() {
@@ -181,13 +181,13 @@ class MoleGrid extends LitElement {
       <div class="grid">
         ${this.grid.map(
           (hasMole, index) => html`
-            <div class="cell ${this.hitted ? "disabled" : ""}" @click="${(e) => this.handleClick(index, hasMole, e)}">
+            <div class="cell" @click="${(e) => this.handleClick(index, hasMole, e)}">
               <div class="container-mole ${hasMole ? "has-mole" : ""}">
                 <div class="${hasMole ? "mole" : ""} ${this.difficulty}"></div>
                 <div class="half-hole"></div>
               </div>
               <div class="${hasMole ? "fake-half-hole" : ""}"></div>
-              <div class="hit ${this.hitted ? "show" : ""}"></div>
+              <div class="hit"></div>
             </div>
           `,
         )}
