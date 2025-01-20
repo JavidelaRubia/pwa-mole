@@ -10,16 +10,16 @@ describe("DifficultySelector", () => {
   });
 
   describe("Estructura y Renderizado", () => {
-    it("debería renderizar correctamente", () => {
+    it("Renderiza correctamente", () => {
       expect(element).to.exist;
     });
 
-    it('debería tener el valor inicial de dificultad "facil"', () => {
+    it('Valor inicial de dificultad "facil"', () => {
       const select = element.shadowRoot.querySelector("select");
       expect(select.value).to.equal("facil");
     });
 
-    it("debería contener las opciones de dificultad", () => {
+    it("Contiene las opciones de dificultad", () => {
       const options = Array.from(element.shadowRoot.querySelectorAll("option"));
       const values = options.map((option) => option.value);
       expect(values).to.deep.equal(["facil", "medio", "dificil"]);
@@ -27,7 +27,7 @@ describe("DifficultySelector", () => {
   });
 
   describe("Interacción y eventos", () => {
-    it('debería emitir un evento "difficulty-changed" cuando se selecciona una nueva dificultad', () => {
+    it('Emite un evento "difficulty-changed" cuando se selecciona una nueva dificultad', () => {
       const select = element.shadowRoot.querySelector("select");
       const eventSpy = sinon.spy();
 
@@ -39,7 +39,7 @@ describe("DifficultySelector", () => {
       expect(eventSpy.firstCall.args[0].detail).to.equal("medio");
     });
 
-    it('debería actualizar la propiedad "difficulty" al cambiar la selección', () => {
+    it('Actualiza la propiedad "difficulty" al cambiar la selección', () => {
       const select = element.shadowRoot.querySelector("select");
       select.value = "dificil";
       select.dispatchEvent(new Event("change"));
@@ -49,7 +49,7 @@ describe("DifficultySelector", () => {
   });
 
   describe('Propiedad "isDisabled"', () => {
-    it('debería deshabilitar el selector si "isDisabled" es true', async () => {
+    it('Deshabilita el selector si "isDisabled" es true', async () => {
       element.isDisabled = true;
       await element.updateComplete;
 
@@ -57,7 +57,7 @@ describe("DifficultySelector", () => {
       expect(select.disabled).to.be.true;
     });
 
-    it('debería habilitar el selector si "isDisabled" es false', async () => {
+    it('Habilita el selector si "isDisabled" es false', async () => {
       element.isDisabled = false;
       await element.updateComplete;
 
@@ -67,11 +67,11 @@ describe("DifficultySelector", () => {
   });
 
   describe("Seguridad y valores predeterminados", () => {
-    it('debería tener un valor predeterminado para "difficulty"', () => {
+    it('Tiene un valor predeterminado para "difficulty"', () => {
       expect(element.difficulty).to.equal("facil");
     });
 
-    it("debería no fallar si no se pasa ningún atributo inicial", () => {
+    it("No falla si no se pasa ningún atributo inicial", () => {
       const select = element.shadowRoot.querySelector("select");
       expect(select.value).to.equal("facil");
     });

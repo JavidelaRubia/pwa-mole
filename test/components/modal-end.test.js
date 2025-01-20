@@ -9,16 +9,16 @@ describe("EndModal Component", () => {
   });
 
   describe("Estructura y Renderizado", () => {
-    it("debería renderizar correctamente", () => {
+    it("Renderiza correctamente", () => {
       expect(element).to.exist;
     });
 
-    it("debería mostrar el puntaje correctamente", () => {
+    it("Muestra el puntaje correctamente", () => {
       const scoreText = element.shadowRoot.querySelector(".modal-content p").textContent;
       expect(scoreText).to.include("Total de puntos: 100");
     });
 
-    it('debería contener un botón de "Jugar de nuevo"', () => {
+    it('Contiene un botón de "Jugar de nuevo"', () => {
       const button = element.shadowRoot.querySelector("button");
       expect(button).to.exist;
       expect(button.textContent).to.equal("Jugar de nuevo");
@@ -26,7 +26,7 @@ describe("EndModal Component", () => {
   });
 
   describe("Propiedades y Reactividad", () => {
-    it('debería actualizar el puntaje cuando cambia la propiedad "score"', async () => {
+    it('Actualiza el puntaje cuando cambia la propiedad "score"', async () => {
       element.score = 200;
       await element.updateComplete;
 

@@ -20,10 +20,6 @@ class MoleGrid extends LitElement {
       -webkit-tap-highlight-color: transparent;
     }
 
-    .cell.disabled {
-      pointer-events: none;
-    }
-
     .container-mole {
       position: absolute;
       width: 100%;
