@@ -49,11 +49,11 @@ class MoleGrid extends LitElement {
     }
 
     .mole.medio {
-      animation-duration: 0.8s;
+      animation-duration: 0.75s;
     }
 
     .mole.dificil {
-      animation-duration: 0.6s;
+      animation-duration: 0.5s;
     }
 
     .half-hole {
@@ -81,7 +81,10 @@ class MoleGrid extends LitElement {
       0% {
         transform: translateY(200px);
       }
-      50% {
+      20% {
+        transform: translateY(100px);
+      }
+      80% {
         transform: translateY(100px);
       }
       100% {
@@ -102,6 +105,35 @@ class MoleGrid extends LitElement {
         }
       }
     }
+
+    .hit {
+      position: absolute;
+      z-index: 10;
+      bottom: 0;
+      width: 100px;
+      height: 100px;
+      background-image: url("/choque.png");
+      background-size: cover;
+      pointer-events: none;
+      opacity: 0;
+      display: none;
+    }
+
+    .hit.show {
+      display: block;
+      animation: hit 0.15s ease-in-out forwards;
+    }
+
+    @keyframes hit {
+      0% {
+        transform: scale(0);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1.5);
+        opacity: 1;
+      }
+    }
   `;
 
   static properties = {
@@ -109,10 +141,24 @@ class MoleGrid extends LitElement {
     difficulty: { type: String },
   };
 
-  handleClick(index, hasMole) {
+  showHitEffect(cell) {
+    const hitElement = cell.querySelector(".hit");
+    if (hitElement) {
+      hitElement.classList.add("show");
+      setTimeout(() => {
+        hitElement.classList.remove("show");
+      }, 150); // Duración de la animación
+    }
+  }
+
+  handleClick(index, hasMole, event) {
     if (!hasMole) {
       return;
     }
+
+    const cell = event.currentTarget;
+    this.showHitEffect(cell);
+
     this.dispatchEvent(
       new CustomEvent("mole-clicked", {
         detail: { index },
@@ -131,12 +177,13 @@ class MoleGrid extends LitElement {
       <div class="grid">
         ${this.grid.map(
           (hasMole, index) => html`
-            <div class="cell" @click="${() => this.handleClick(index, hasMole)}">
+            <div class="cell" @click="${(e) => this.handleClick(index, hasMole, e)}">
               <div class="container-mole ${hasMole ? "has-mole" : ""}">
                 <div class="${hasMole ? "mole" : ""} ${this.difficulty}"></div>
                 <div class="half-hole"></div>
               </div>
               <div class="${hasMole ? "fake-half-hole" : ""}"></div>
+              <div class="hit ${hasMole && this.hitted ? "show" : ""}"></div>
             </div>
           `,
         )}
